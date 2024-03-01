@@ -9,6 +9,9 @@
 在本例中 LATEST_GIT_TAG 在构建时有四种情况
 
 1. 本地无修改，HEAD 就是 tag（用于发版）
-2. 本地有修改，HEAD 就是 tag（用于发版后的开发）
+2. 本地有修改，HEAD 就是 tag（用于发版后的开发）：
 3. 本地无修改，HEAD 不是 tag（内部打包）
 4. 本地有修改，HEAD 不是 tag（内部调试开发）
+
+- 如果有修改，LATEST_GIT_TAG 会带 dirty 字样
+- 如果 HEAD 不是 tag，LATEST_GIT_TAG 会带 HEAD 的 hash 值
