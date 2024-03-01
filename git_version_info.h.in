@@ -1,0 +1,6 @@
+#ifndef GIT_VERSION_INFO_H
+#define GIT_VERSION_INFO_H
+
+#define LATEST_GIT_TAG "@LATEST_GIT_TAG@"
+
+#endif // GIT_VERSION_INFO_H
