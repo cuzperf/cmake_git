@@ -10,30 +10,23 @@ if(NOT GIT_COMMAND_RESULT EQUAL 0)
     message(FATAL_ERROR "Failed to run 'git describe' command.")
 endif()
 
-# 获取最新的 git tag 对应的 （短）hash 值
+macro(GET_HASH_NAME TAG_NAME TAG_HASH)
 execute_process(
-    COMMAND git rev-parse --short ${LATEST_GIT_TAG}
+    COMMAND git rev-parse --short ${TAG_NAME}
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-    OUTPUT_VARIABLE LATEST_GIT_TAG_HASH
+    OUTPUT_VARIABLE ${TAG_HASH}
     OUTPUT_STRIP_TRAILING_WHITESPACE
     RESULT_VARIABLE GIT_REV_PARSE_RESULT_TAG
 )
 if(NOT GIT_REV_PARSE_RESULT_TAG EQUAL 0)
     message(FATAL_ERROR "Failed to run 'git rev-parse' command.")
 endif()
+endmacro()
 
+# 获取最新的 git tag 对应的 （短）hash 值
+GET_HASH_NAME(${LATEST_GIT_TAG} LATEST_GIT_TAG_HASH)
 # 获取最新的commit（HEAD）对应的 （短） hash 值
-execute_process(
-    COMMAND git rev-parse --short HEAD
-    WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-    OUTPUT_VARIABLE HEAD_COMMIT_HASH
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-    RESULT_VARIABLE GIT_REV_PARSE_RESULT_HEAD
-)
-if(NOT GIT_REV_PARSE_RESULT_HEAD EQUAL 0)
-    message(FATAL_ERROR "Failed to run 'git rev-parse' command.")
-endif()
-
+GET_HASH_NAME(HEAD HEAD_COMMIT_HASH)
 
 # 判断当前分支在本地是否有修改
 execute_process(
